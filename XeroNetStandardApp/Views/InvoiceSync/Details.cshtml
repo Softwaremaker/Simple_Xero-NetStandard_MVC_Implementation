@@ -1,0 +1,132 @@
+﻿@model dynamic
+@using Xero.NetStandard.OAuth2.Model.Accounting
+
+
+@{
+    ViewData["Title"] = $"Invoice {Model.InvoiceID}";
+}
+
+<h2>Xero Invoice @Model.InvoiceID Details</h2>
+
+<div>
+    <br />
+    <p><strong>Invoice Number:</strong> @Model.InvoiceNumber</p>
+    <p><strong>Status:</strong> @Model.Status</p>
+    <p><strong>Type:</strong> @Model.Type</p>
+    <p><strong>Date:</strong> @Model.Date?.ToString("dd/MMM/yyyy")</p>
+    <p><strong>Due Date:</strong> @Model.DueDate?.ToString("dd/MMM/yyyy")</p>
+    <p><strong>Reference:</strong> @Model.Reference</p>
+    <p><strong>Currency:</strong> @Model.CurrencyCode</p>
+    <p><strong>Sub Total:</strong> @Model.SubTotal</p>
+    <p><strong>Total Tax:</strong> @Model.TotalTax</p>
+    <p><strong>Total:</strong> @Model.Total</p>
+</div>
+
+<hr />
+
+<div>
+    <h3>Invoice Address(es)</h3>
+
+    @if (Model.InvoiceAddresses != null)
+    {
+        <h4>Invoice Addresses</h4>
+        <ul>
+            @foreach (var addr in Model.InvoiceAddresses)
+            {
+                <li>
+                    <strong>@addr.AddressType</strong><br />
+                    @addr.AddressLine1<br />
+                    @addr.AddressLine2<br />
+                    @addr.City @addr.Region @addr.PostalCode<br />
+                    @addr.Country
+                </li>
+            }
+        </ul>
+    }
+    else
+    {
+        <p>No Invoice Addresses defined.</p>
+    }
+</div>
+
+<hr /
+
+<div>
+    <h3>Contact Address(es)</h3>
+    <p><strong>Name:</strong> @Model.Contact?.Name</p>
+    <p><strong>Email:</strong> @Model.Contact?.EmailAddress</p>
+
+    @if (Model.Contact?.Addresses != null)
+    {
+        <h4>Contact Addresses</h4>
+        <ul>
+            @foreach (var addr in Model.Contact.Addresses)
+            {
+                <li>
+                    @if (addr.AddressType == Address.AddressTypeEnum.POBOX) // Address.AddressTypeEnum.POBOX
+                {
+                    <strong>Billing Adddress</strong>
+                }
+                    else if (addr.AddressType == Address.AddressTypeEnum.STREET)
+                {
+                    <strong>Delivery Address</strong>
+                }
+                <br />
+                    @addr.AddressLine1<br />
+                    @addr.AddressLine2<br />
+                    @addr.City @addr.Region @addr.PostalCode<br />
+                    @addr.Country
+                </li>
+            }
+        </ul>
+    }
+    else
+    {
+        <p>No Contact Addresses defined.</p>
+    }
+</div>
+
+<hr />
+
+<div>
+    <h3>Line Items</h3>
+
+    @if (Model.LineItems != null)
+    {
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Item Code</th>
+                    <th>Description</th>
+                    <th>Qty</th>
+                    <th>Unit Price</th>
+                    <th>Account</th>
+                    <th>Tax Type</th>
+                    <th>Line Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var line in Model.LineItems)
+                {
+                    <tr>
+                        <td>@line.ItemCode</td>
+                        <td>@line.Description</td>
+                        <td>@line.Quantity</td>
+                        <td>@line.UnitAmount</td>
+                        <td>@line.AccountCode</td>
+                        <td>@line.TaxType</td>
+                        <td>@line.LineAmount</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <p>No line items.</p>
+    }
+</div>
+
+<hr />
+
+<button onclick="location.href='@Url.Action("Index", "Home")'">Back</button>

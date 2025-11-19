@@ -17,25 +17,20 @@
 
         <section style="margin-left: 10px">
             <p><button onclick="location.href='@Url.Action("Index", "OrganisationInfo")'">Get Organisation Information</button></p>
-
-            <p><button onclick="location.href='@Url.Action("Index", "ContactsInfo")'">Get Contacts</button></p>
-        
-            <p><button onclick="location.href='@Url.Action("Create", "ContactsInfo")'">Create a Contact</button></p>
-        
-            <p><button onclick="location.href='@Url.Action("Index", "InvoiceSync")'">Get Invoices</button></p>
-        
-            <p><button onclick="location.href='@Url.Action("Create", "InvoiceSync")'">Create an Invoice</button></p>
-
-            <p><button onclick="location.href='@Url.Action("Index", "BankTransactionsInfo")'">Get Bank Transactions</button></p>
+            @* <p><button onclick="location.href='@Url.Action("Index", "ContactsInfo")'">Get Contacts</button></p>        
+            <p><button onclick="location.href='@Url.Action("Create", "ContactsInfo")'">Create a Contact</button></p>         *@
+            <p><button onclick="location.href='@Url.Action("Index", "InvoiceSync")'">Get Invoices</button></p>        
+            @* <p><button onclick="location.href='@Url.Action("Create", "InvoiceSync")'">Create an Invoice</button></p>
+            <p><button onclick="location.href='@Url.Action("Index", "BankTransactionsInfo")'">Get Bank Transactions</button></p> *@
         </section>
 
-        <h6> Asset APIs: </h6>
+        @* <h6> Asset APIs: </h6>
 
         <section style="margin-left: 10px">
             <p><button onclick="location.href='@Url.Action("Index", "AssetsInfo")'">Get Fixed Assets</button></p>
         
             <p><button onclick="location.href='@Url.Action("Create", "AssetsInfo")'">Create A Fixed Asset</button></p>
-        </section>    
+        </section>     *@
 
         <h6> Identity APIs: </h6>
 
@@ -43,11 +38,11 @@
 
             <p><button onclick="location.href='@Url.Action("Index", "IdentityInfo")'">Get Connections</button></p>
         
-            <p> AU Payroll APIs: </p>
+            @* <p> AU Payroll APIs: </p>
 
             <p><button onclick="location.href='@Url.Action("Index", "EmployeesInfo")'">Get AU Payroll Employees</button></p>
 
-            <p><button onclick="location.href='@Url.Action("Create", "EmployeesInfo")'">Create an AU Payroll Employee</button></p>
+            <p><button onclick="location.href='@Url.Action("Create", "EmployeesInfo")'">Create an AU Payroll Employee</button></p> *@
         </section>
 
     }

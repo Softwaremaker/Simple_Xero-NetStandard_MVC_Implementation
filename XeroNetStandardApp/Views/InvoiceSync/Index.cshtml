@@ -4,18 +4,32 @@
 
 <table class="table-responsive-lg">
   <tr>
-    <th>Invoice #</th>
-    <th>To</th>
-    <th>Date</th>
-    <th>Due Date</th>
-    <th>Total Due</th>
+        <th>Invoice ID</th>
+        <td />
+        <th>Invoice #</th>
+        <td />
+        <th>To</th>
+        <td />
+        <th>Date</th>
+        <td />
+        <th>Due Date</th>
+        <td />
+        <th>Total Due</th>
   </tr>
   @foreach (var invoice in Model) {
     <tr>
+      <td>
+          <a asp-action="Details" asp-route-id="@invoice.InvoiceID">@invoice.InvoiceID</a>
+      </td>
+      <td />
       <td>@invoice.InvoiceNumber</td>
+      <td />
       <td>@invoice.Contact.Name</td>
-      <td>@invoice.Date.ToString("d/MM,yy")</td>
-      <td>@invoice.DueDate.ToString("d/MM/yy")</td>
+      <td />
+      <td>@invoice.Date.ToString("dd/MMM/yyyy")</td>
+      <td />
+      <td>@invoice.DueDate.ToString("dd/MMM/yyyy")</td>
+      <td />
       <td>@invoice.Total</td>
     </tr>
   }

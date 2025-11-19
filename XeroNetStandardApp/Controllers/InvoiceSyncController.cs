@@ -1,11 +1,12 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
 using System;
-using System.Threading.Tasks;
 using System.Collections.Generic;
-using Xero.NetStandard.OAuth2.Model.Accounting;
+using System.Linq;
+using System.Threading.Tasks;
 using Xero.NetStandard.OAuth2.Api;
 using Xero.NetStandard.OAuth2.Config;
-using Microsoft.Extensions.Options;
+using Xero.NetStandard.OAuth2.Model.Accounting;
 
 namespace XeroNetStandardApp.Controllers
 {
@@ -17,11 +18,25 @@ namespace XeroNetStandardApp.Controllers
         public async Task<IActionResult> Index()
         {
             var sevenDaysAgo = DateTime.Now.AddDays(-7).ToString("yyyy, MM, dd");
-            var invoicesFilter = "Date >= DateTime(" + sevenDaysAgo + ")";
+            var invoicesFilter = "Date >= DateTime(" + sevenDaysAgo + ")"; // "Date >= DateTime(" + sevenDaysAgo + ")"; // "InvoiceNumber==\"INV-0031\"";
 
             var response = await Api.GetInvoicesAsync(XeroToken.AccessToken, TenantId, where: invoicesFilter);
 
             return View(response._Invoices);
+        }
+
+        public async Task<IActionResult> Details(Guid id)
+        {
+            var response = await Api.GetInvoiceAsync(XeroToken.AccessToken, TenantId, id);
+
+            var invoice = response._Invoices?.FirstOrDefault();
+
+            if (invoice == null)
+            {
+                return NotFound($"Invoice with ID {id} not found.");
+            }
+
+            return View(invoice);
         }
 
         // GET: /InvoiceSync#Create
