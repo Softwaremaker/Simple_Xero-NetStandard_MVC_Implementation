@@ -1,9 +1,12 @@
 ﻿@model dynamic
+@* @model Xero.NetStandard.OAuth2.Model.Accounting.Invoice *@
 @using Xero.NetStandard.OAuth2.Model.Accounting
+@using XeroNetStandardApp.Services
 
 
 @{
     ViewData["Title"] = $"Invoice {Model.InvoiceID}";
+    var geos = ViewBag.GeocodedAddresses as List<GeocodedAddressResult> ?? new List<GeocodedAddressResult>();
 }
 
 <h2>Xero Invoice @Model.InvoiceID Details</h2>
@@ -62,6 +65,10 @@
         <ul>
             @foreach (var addr in Model.Contact.Addresses)
             {
+                // Find the matching geocoded result for this specific address object
+                GeocodedAddressResult? geo = geos.FirstOrDefault(g => g.Address == addr);
+                string? latLon = geo?.LatLon;
+
                 <li>
                     @if (addr.AddressType == Address.AddressTypeEnum.POBOX) // Address.AddressTypeEnum.POBOX
                 {
@@ -75,7 +82,16 @@
                     @addr.AddressLine1<br />
                     @addr.AddressLine2<br />
                     @addr.City @addr.Region @addr.PostalCode<br />
-                    @addr.Country
+                    @addr.Country<br />
+                    <strong>------------------------------------------------</strong>
+                    @if (!string.IsNullOrWhiteSpace(latLon))
+                    {
+                        <p>Coordinates: <strong>@latLon</strong></p>
+                    }
+                    else
+                    {
+                        <p>Coordinates: <strong>NA</strong></p>
+                    }
                 </li>
             }
         </ul>
