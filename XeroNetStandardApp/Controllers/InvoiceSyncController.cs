@@ -179,12 +179,15 @@ namespace XeroNetStandardApp.Controllers
             // --- ASEAN (you will use these a lot) ---
             { "SG", "Singapore" },
             { "SIN", "Singapore" },
+            { "SGP", "Singapore" },
 
             { "MY", "Malaysia" },
             { "MYS", "Malaysia" },
+            { "MAL", "Malaysia" },
 
             { "TH", "Thailand" },
             { "THA", "Thailand" },
+            { "THAI", "Thailand" },
 
             { "ID", "Indonesia" },
             { "IDN", "Indonesia" },
