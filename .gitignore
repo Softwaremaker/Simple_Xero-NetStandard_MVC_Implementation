@@ -671,3 +671,5 @@ ASALocalRun/
 healthchecksdb
 
 # End of https://www.gitignore.io/api/git,osx,rider,windows,jetbrains,aspnetcore,visualstudio,visualstudiocode
+/XeroNetStandardApp/appsettings.json
+/XeroNetStandardApp/appsettings.json
